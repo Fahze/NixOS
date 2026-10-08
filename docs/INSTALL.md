@@ -3,11 +3,45 @@
 Guide pour installer l'hôte `thinkpad-fahze` sur le ThinkPad P14s Gen 5 AMD (disque unique de 1 To) :
 chiffrement LUKS2, btrfs, GRUB (compatible avec un Windows installé plus tard) et secrets sops-nix.
 
-> `install.sh` et `live-install.sh` viennent du dépôt d'origine et ne sont **pas** utilisables ici :
-> l'installation se fait à la main, comme décrit ci-dessous.
+Deux façons d'installer : le script `install.sh` (recommandé, voir ci-dessous) ou les commandes
+manuelles des sections B à D, que le script reproduit à l'identique.
 
 **Résumé des étapes** : préparation (A) → partitionnement depuis le live USB (B) → clé de la machine
 et secrets (C) → installation (D) → premier démarrage (E).
+
+## Installation avec `install.sh`
+
+Après la préparation (section A : BIOS, clé USB, secret du mot de passe poussé dans le dépôt),
+depuis le live USB :
+
+```bash
+sudo -i                                   # puis connecte-toi au réseau (nmcli device wifi connect <SSID> --ask)
+export NIX_CONFIG="experimental-features = nix-command flakes"
+nix shell nixpkgs#git -c git clone https://github.com/Fahze/NixOS.git ~/NixOS
+cd ~/NixOS && git checkout feat/thinkpad-fahze   # ou master une fois la branche fusionnée
+./install.sh --dry-run                    # affiche toutes les commandes sans rien exécuter
+./install.sh                              # installation réelle
+```
+
+Le script :
+
+1. vérifie l'environnement (live USB, UEFI, réseau, `secrets/secrets.yaml`) ;
+2. te fait choisir le disque, les tailles de l'ESP (1G par défaut) et de la racine (580G par défaut,
+   ou `max`), puis exige que tu retapes le nom du disque avant d'effacer quoi que ce soit ;
+3. partitionne (GPT, ESP + LUKS2), formate (FAT32, btrfs avec `@`, `@home`, `@nix`) et monte sous `/mnt` ;
+4. génère la clé SSH de la machine, affiche sa clé age et **attend que tu l'ajoutes dans `.sops.yaml`
+   depuis WSL** (`sops updatekeys`, commit, push), puis fait `git pull` et vérifie que la clé est bien
+   destinataire du secret ;
+5. génère `hardware-configuration.nix` (options `compress=zstd,noatime` ajoutées aux sous-volumes,
+   présence du LUKS dans l'initrd vérifiée) et le suit avec git ;
+6. lance `nixos-install --flake .#thinkpad-fahze --no-root-passwd`, copie le dépôt dans
+   `~/NixOS` et propose de démonter le disque.
+
+Options : `--disk /dev/nvme0n1`, `--esp 1G`, `--root 580G` (ou `max`), `--host`, `--dry-run`.
+L'espace restant après la racine reste non alloué (la place pour un Windows éventuel).
+
+Après le redémarrage, passe à la section E (premier démarrage). Les sections B à D ci-dessous
+restent la référence manuelle si le script ne convient pas.
 
 **Ne jamais** committer, coller ou envoyer `keys.txt` ni `ssh_host_ed25519_key` (clés privées),
 ni la phrase de passe LUKS. Seules les clés publiques (`age1...`, `.pub`) circulent.
@@ -175,7 +209,8 @@ git checkout feat/thinkpad-fahze        # ou main une fois la branche fusionnée
 nixos-generate-config --root /mnt --show-hardware-config > hosts/thinkpad-fahze/hardware-configuration.nix
 ```
 
-Ce fichier remplace le placeholder du dépôt. Ouvre-le et vérifie :
+Ce fichier remplace le placeholder du dépôt (le script `install.sh` fait déjà cette étape, y compris
+les options btrfs). Ouvre-le et vérifie :
 
 - `boot.initrd.luks.devices."cryptroot"` est présent (UUID de la partition `cryptroot`) ;
 - les `fileSystems` `/`, `/home`, `/nix` (sous-volumes `@`, `@home`, `@nix`) et `/boot` (vfat) existent ;
