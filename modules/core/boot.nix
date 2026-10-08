@@ -6,7 +6,7 @@
       "ntfs"
       "exfat"
       "ext4"
-      "fat32"
+      "vfat"
       "btrfs"
     ];
     tmp.cleanOnBoot = true;
@@ -17,14 +17,15 @@
     loader = {
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot";
-      timeout = null; # Display bootloader indefinitely until user selects OS
+      timeout = 5; # Seconds before the default entry boots (press a key to pick another OS)
       grub = {
         enable = true;
         device = "nodev";
         efiSupport = true;
         useOSProber = true;
-        gfxmodeEfi = "2715x1527"; # for 4k: 3840x2160
-        gfxmodeBios = "2715x1527"; # for 4k: 3840x2160
+        configurationLimit = 20; # Keep the ESP from filling up with old generations
+        gfxmodeEfi = "auto"; # native resolution of the panel
+        gfxmodeBios = "auto";
         theme = pkgs.stdenv.mkDerivation {
           pname = "distro-grub-themes";
           version = "3.1";
