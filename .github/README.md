@@ -41,8 +41,10 @@ Most choices are variables in [`hosts/thinkpad-fahze/variables.nix`](../hosts/th
 
 ## Install
 
-Follow [`docs/INSTALL.md`](../docs/INSTALL.md). `install.sh` and `live-install.sh` come from the
-upstream repository, still refer to its example hosts and **do not work** with this fork yet.
+Boot the NixOS live USB, clone this repository and run `sudo ./install.sh` (use `--dry-run` first to
+see every command). It partitions the disk (ESP + LUKS2 + btrfs), sets up the sops machine key,
+generates the hardware configuration, runs `nixos-install` and copies the repository to `~/NixOS`.
+Full guide, including the manual steps: [`docs/INSTALL.md`](../docs/INSTALL.md) (French).
 
 ## Daily use
 
