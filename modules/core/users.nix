@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   inputs,
   host,
@@ -14,7 +15,10 @@ let
     ;
 in
 {
-  imports = [ inputs.home-manager.nixosModules.home-manager ];
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+    ./secrets.nix
+  ];
   programs.dconf.enable = true; # Enable dconf for home-manager
   home-manager = {
     useGlobalPkgs = true;
@@ -45,10 +49,14 @@ in
     };
   };
   users = {
-    mutableUsers = true;
+    # Declarative accounts: passwords always come from the configuration (sops), so a
+    # changed password or the locked root account survive every rebuild.
+    mutableUsers = false;
+    # root cannot log in with a password (console, su, ssh). Use sudo (group wheel).
+    users.root.hashedPassword = "!";
     users.${username} = {
       isNormalUser = true;
-      initialPassword = "123";
+      hashedPasswordFile = config.sops.secrets."user-password".path;
       extraGroups = [
         "wheel" # sudo access
         "input"
