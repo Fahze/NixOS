@@ -1,4 +1,11 @@
-{ pkgs, ... }:
+{
+  host,
+  lib,
+  ...
+}:
+let
+  palette = import ../../../themes/palette.nix { inherit host lib; };
+in
 {
   home-manager.sharedModules = [
     (_: {
@@ -8,7 +15,7 @@
           size = 12.0;
           name = "monospace";
         };
-        themeFile = "Catppuccin-Mocha";
+        themeFile = "Catppuccin-${palette.flavorCap}";
         settings = {
           # shell = "${getExe pkgs.tmux}";
 
@@ -36,10 +43,10 @@
           inactive_tab_font_style = "normal";
           tab_bar_style = "powerline";
           tab_powerline_style = "round";
-          active_tab_foreground = "#1e1e2e";
-          active_tab_background = "#cba6f7";
-          inactive_tab_foreground = "#bac2de";
-          inactive_tab_background = "#313244";
+          active_tab_foreground = palette.hex.base;
+          active_tab_background = palette.accentHex;
+          inactive_tab_foreground = palette.hex.subtext1;
+          inactive_tab_background = palette.hex.surface0;
         };
         # shellIntegration.mode = "no-sudo";
         keybindings = {

@@ -1,5 +1,11 @@
-{ pkgs, ... }:
+{
+  host,
+  lib,
+  pkgs,
+  ...
+}:
 let
+  palette = import ../../../themes/palette.nix { inherit host lib; };
   dreamsofcode-io-catppuccin-tmux = pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = "catppuccin";
     version = "unstable-2023-01-06";
@@ -52,7 +58,7 @@ in
           bind C-a send-prefix
 
           # Options
-          set -g @catppuccin_flavour 'mocha'
+          set -g @catppuccin_flavour '${palette.flavor}'
           set -g mouse on
           set -g allow-rename off
           set -g status-position top
