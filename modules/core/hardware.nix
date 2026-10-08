@@ -3,17 +3,17 @@ let
   inherit (import ../../hosts/${host}/variables.nix) hostname bluetoothSupport;
 in
 {
-  programs.solaar.enable = true;
+  programs.solaar.enable = false; # disabled: no Logitech receiver
   hardware = {
     sane = {
-      enable = true;
+      enable = false; # disabled: no scanner
       extraBackends = [ pkgs.sane-airscan ];
       disabledDefaultBackends = [ "escl" ];
     };
     logitech.wireless.enable = false;
     graphics.enable = true;
     enableRedistributableFirmware = true;
-    keyboard.qmk.enable = true;
+    keyboard.qmk.enable = false; # disabled: no QMK keyboard
     bluetooth = {
       enable = bluetoothSupport;
       powerOnBoot = bluetoothSupport;
