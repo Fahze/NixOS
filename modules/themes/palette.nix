@@ -163,7 +163,12 @@ let
   capitalize = s: lib.toUpper (builtins.substring 0 1 s) + builtins.substring 1 (-1) s;
 in
 {
-  inherit flavor accent colors fromKnown;
+  inherit
+    flavor
+    accent
+    colors
+    fromKnown
+    ;
   flavorCap = capitalize flavor;
   accentCap = capitalize accent;
 

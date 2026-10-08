@@ -13,7 +13,7 @@ in
     (_: {
       programs.rofi = {
         enable = true;
-        settings = import ./config.nix {inherit terminal lib pkgs;};
+        settings = import ./config.nix { inherit terminal lib pkgs; };
         plugins = with pkgs; [
           rofi-emoji # https://github.com/Mange/rofi-emoji 🤯
           rofi-games # https://github.com/Rolv-Apneseth/rofi-games 🎮

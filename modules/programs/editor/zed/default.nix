@@ -10,7 +10,10 @@ in
 {
   home-manager.sharedModules = [
     (_: {
-      home.packages = with pkgs; [ nil nixd ];
+      home.packages = with pkgs; [
+        nil
+        nixd
+      ];
       programs.zed-editor = {
         enable = true;
         # mutableUserSettings = true;
@@ -50,8 +53,8 @@ in
             code_actions = true;
           };
           project_panel = {
-            hide_gitignore= false;
-            dock= "right";
+            hide_gitignore = false;
+            dock = "right";
           };
           tabs.git_status = true;
           tab_bar.show = true;
@@ -72,11 +75,11 @@ in
             Nix.format_on_save = "modifications_if_available";
           };
           git_panel = {
-            show_count_badge= true;
-            status_style= "label_color";
-            collapse_untracked_diff= false;
-            file_icons= false;
-            tree_view= true;
+            show_count_badge = true;
+            status_style = "label_color";
+            collapse_untracked_diff = false;
+            file_icons = false;
+            tree_view = true;
           };
           agent_servers.github-copilot-cli.type = "registry";
         };
