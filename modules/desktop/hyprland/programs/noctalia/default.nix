@@ -492,7 +492,7 @@ in
               visualization = "none";
             };
             session = {
-              icon_color = "#ED8796";
+              icon_color = palette.hex.red;
               scale = 1.5;
               actions.right = "exec wlogout -b 4";
             };

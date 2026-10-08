@@ -1,8 +1,13 @@
 {
   self,
+  host,
+  lib,
   pkgs,
   ...
 }:
+let
+  palette = import ../themes/palette.nix { inherit host lib; };
+in
 {
   home-manager.sharedModules = [
     (
@@ -96,9 +101,9 @@
             export XMONAD_CACHE_DIR="''${XDG_CACHE_HOME:-$HOME/.cache}/xmonad"
 
             export FZF_DEFAULT_OPTS=" \
-            --color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
-            --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
-            --color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796"
+            --color=bg+:${palette.hex.surface0},bg:${palette.hex.base},spinner:${palette.hex.rosewater},hl:${palette.hex.red} \
+            --color=fg:${palette.hex.text},header:${palette.hex.red},info:${palette.hex.mauve},pointer:${palette.hex.rosewater} \
+            --color=marker:${palette.hex.rosewater},fg+:${palette.hex.text},prompt:${palette.hex.mauve},hl+:${palette.hex.red}"
           '';
           shellGlobalAliases = {
             UUID = "$(uuidgen | tr -d \\n)";
