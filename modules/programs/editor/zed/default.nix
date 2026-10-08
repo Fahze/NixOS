@@ -1,4 +1,12 @@
-{ pkgs, ... }:
+{
+  host,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  palette = import ../../../themes/palette.nix { inherit host lib; };
+in
 {
   home-manager.sharedModules = [
     (_: {
@@ -22,12 +30,12 @@
           theme = {
             mode = "system";
             light = "Catppuccin Latte - No Italics";
-            dark = "Catppuccin Macchiato - No Italics";
+            dark = "Catppuccin ${palette.flavorCap} - No Italics";
           };
           icon_theme = {
             mode = "system";
             light = "Catppuccin Latte";
-            dark = "Catppuccin Macchiato";
+            dark = "Catppuccin ${palette.flavorCap}";
           };
           base_keymap = "Zed";
           minimap.show = "auto";

@@ -1,8 +1,12 @@
 {
+  host,
   lib,
   pkgs,
   ...
 }:
+let
+  palette = import ../../../themes/palette.nix { inherit host lib; };
+in
 {
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "vscode" ];
   home-manager.sharedModules = [
@@ -56,9 +60,9 @@
             "window.menuBarVisibility" = "classic";
             # "window.zoomLevel" = 0.5;
             "editor.fontSize" = 16;
-            "workbench.colorTheme" = "Catppuccin Mocha";
-            "workbench.iconTheme" = "catppuccin-mocha";
-            "catppuccin.accentColor" = "mauve";
+            "workbench.colorTheme" = "Catppuccin ${palette.flavorCap}";
+            "workbench.iconTheme" = "catppuccin-${palette.flavor}";
+            "catppuccin.accentColor" = palette.accent;
             "vsicons.dontShowNewVersionMessage" = true;
             "explorer.confirmDragAndDrop" = false;
             "editor.fontLigatures" = true;
