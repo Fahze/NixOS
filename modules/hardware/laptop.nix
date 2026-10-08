@@ -16,4 +16,15 @@
     HandlePowerKey = "suspend";
     HandlePowerKeyLongPress = "poweroff";
   };
+
+  # Fingerprint reader (Synaptics 06cb:00f9, supported by libfprint).
+  # fprintd enables fprintAuth on every PAM service by default; keep it only
+  # where it is wanted (sudo, polkit-1). login and sddm must use the password
+  # so the keyring unlocks; hyprlock talks to fprintd natively instead.
+  services.fprintd.enable = true;
+  security.pam.services = {
+    login.fprintAuth = false;
+    sddm.fprintAuth = false;
+    hyprlock.fprintAuth = false; # also creates the "hyprlock" PAM service
+  };
 }
