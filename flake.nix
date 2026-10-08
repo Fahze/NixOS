@@ -106,6 +106,7 @@
       nixosConfigurations = {
         Default = mkHost "Default";
         Singularity = mkHost "Singularity";
+        thinkpad-fahze = mkHost "thinkpad-fahze";
       };
     };
 }
