@@ -15,22 +15,18 @@
           };
           listener = [
             {
-              timeout = 600; # 10 Minutes
+              timeout = 600; # 10 minutes: lock
               on-timeout = "loginctl lock-session";
             }
-            /*
-              {
-                timeout = 360; # 6 Minutes
-                on-timeout = "hyprctl dispatch dpms off";
-                on-resume = "hyprctl dispatch dpms on";
-              }
-            */
-            /*
-              {
-                timeout = 600; # 10m
-                on-timeout = "systemctl suspend";
-              }
-            */
+            {
+              timeout = 900; # 15 minutes: screen off
+              on-timeout = "hyprctl dispatch dpms off";
+              on-resume = "hyprctl dispatch dpms on";
+            }
+            {
+              timeout = 1800; # 30 minutes: suspend
+              on-timeout = "systemctl suspend";
+            }
           ];
         };
       };
