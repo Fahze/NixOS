@@ -13,6 +13,12 @@
     rustfmt
     rust-analyzer
     gcc # linker used by rustc
+
+    # Python: interpreter plus uv (projects, venvs, pip, tools) and ruff (lint/format).
+    # Libraries belong in a project venv (uv) or in dev-shells/python.
+    python3
+    uv
+    ruff
   ];
 
   # rust-analyzer needs the standard library sources
