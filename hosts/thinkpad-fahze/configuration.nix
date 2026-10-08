@@ -16,6 +16,7 @@ in
     ../../modules/core/fonts.nix
     ../../modules/core/hardware.nix
     ../../modules/core/network.nix
+    ../../modules/core/netbird.nix # Ynov VPN (temporary)
     ../../modules/core/nh.nix
     ../../modules/core/packages.nix
     ../../modules/core/printing.nix
