@@ -4,7 +4,8 @@
     # obsidian
     # ludusavi
     # godot
-    # proton-vpn
+    proton-vpn
+    gitkraken
     # github-desktop
     # pokego # Overlayed
   ];
