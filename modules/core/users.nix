@@ -55,14 +55,7 @@ in
         "networkmanager"
         "video"
         "audio"
-        "libvirtd"
-        "kvm"
-        "docker"
-        "disk"
-        "adbusers"
-        "lp"
-        "scanner"
-        "vboxusers" # Virtual Box
+        "docker" # NOTE: docker group is equivalent to root
       ];
       shell = pkgs.${shell};
       ignoreShellProgramCheck = true;
