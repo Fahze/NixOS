@@ -6,6 +6,7 @@
     "_8454caa8-cebc-4486-8b23-9771f187ed6c_-browser-action"
     "firemonkey_eros_man-browser-action"
     "ublock0_raymondhill_net-browser-action"
+    "78272b6fa58f4a1abaac99321d503a20_proton_me-browser-action"
     # "addon_darkreader_org-browser-action"
     # "queryamoid_kaply_com-browser-action"
     # "_aecec67f-0d10-4fa7-b7c7-609a2db280cf_-browser-action"
@@ -35,6 +36,12 @@
       default_area = "navbar";
       installation_mode = "force_installed";
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/firemonkey/latest.xpi";
+    };
+    "78272b6fa58f4a1abaac99321d503a20@proton.me" = {
+      private_browsing = true;
+      default_area = "navbar";
+      installation_mode = "force_installed";
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/proton-pass/latest.xpi";
     };
     "clipper@obsidian.md" = {
       private_browsing = false;
