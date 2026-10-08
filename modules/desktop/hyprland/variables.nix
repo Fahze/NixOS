@@ -11,6 +11,7 @@ let
     bar
     browser
     terminal
+    editor
     fileManager
     kbdLayout
     kbdVariant
@@ -18,6 +19,18 @@ let
     defaultWallpaper
     ;
   kbdOptions = vars.kbdOptions or "";
+
+  # Command run by SUPER + C: GUI editors directly, terminal editors inside the terminal.
+  editorCommands = {
+    vscode = "code";
+    zed = "zeditor";
+    helix = "${terminal} -e hx";
+    neovim = "${terminal} -e nvim";
+    nixvim = "${terminal} -e nvim";
+    nvchad = "${terminal} -e nvim";
+    doom-emacs = "emacs";
+  };
+  editorCommand = editorCommands.${editor} or "code";
 
   # Import script modules
   # autowaybar = pkgs.callPackage ./scripts/autowaybar.nix { };
@@ -62,7 +75,7 @@ in
             launcher = "${getExe launcher}"
             bar = "${if bar == "wayle" then "wayle shell" else bar}"
             term = "${terminal}"
-            editor = "zeditor"
+            editor = "${editorCommand}"
             browser = "${browser}"
             fileManager = "${fileManager}"
             capslockAsESC = ${lib.boolToString capslockAsESC}

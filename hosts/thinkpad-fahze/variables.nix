@@ -14,6 +14,7 @@
   # Default Applications
   terminal = "kitty"; # kitty, alacritty, wezterm
   editor = "vscode"; # nixvim, zed, vscode, helix, doom-emacs, nvchad, neovim
+  terminalEditor = "nvim"; # $EDITOR: used by git commit, sudoedit... (must run in a terminal)
   browser = "zen-beta"; # zen-beta, firefox, floorp
   fileManager = "thunar"; # yazi, lf, thunar
   shell = "zsh"; # bash, zsh

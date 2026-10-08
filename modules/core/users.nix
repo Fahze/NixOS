@@ -6,13 +6,24 @@
   ...
 }:
 let
-  inherit (import ../../hosts/${host}/variables.nix)
+  vars = import ../../hosts/${host}/variables.nix;
+  inherit (vars)
     username
     editor
     terminal
     browser
     shell
     ;
+  # $EDITOR must be a terminal editor. Hosts without terminalEditor keep the previous rule.
+  terminalEditor =
+    vars.terminalEditor or (
+      if (editor == "nixvim" || editor == "neovim" || editor == "nvchad") then
+        "nvim"
+      else if editor == "vscode" then
+        "code"
+      else
+        "nano"
+    );
 in
 {
   imports = [
@@ -35,13 +46,7 @@ in
         homeDirectory = "/home/${username}";
         stateVersion = "26.05"; # Do not change!
         sessionVariables = {
-          EDITOR =
-            if (editor == "nixvim" || editor == "neovim" || editor == "nvchad") then
-              "nvim"
-            else if editor == "vscode" then
-              "code"
-            else
-              "nano";
+          EDITOR = terminalEditor;
           BROWSER = "${browser}";
           TERMINAL = "${terminal}";
         };
