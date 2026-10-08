@@ -15,5 +15,8 @@
     hunspellDicts.en_GB-ise
     prismlauncher # Minecraft
     claude-code
+
+    #Temporaire Ynov Netbird (VPN)
+    netbird-ui
   ];
 }
