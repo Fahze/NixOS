@@ -554,22 +554,6 @@
         "type": "github"
       }
     },
-    "neovim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1756715888,
-        "narHash": "sha256-0o1h27/xj+9u/noN4lsmQVk+YYFFUmdfmjwkqdWM650=",
-        "owner": "Sly-Harvey",
-        "repo": "nvim",
-        "rev": "978d468def66f1626474cee1dbecfe463de82f3f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Sly-Harvey",
-        "repo": "nvim",
-        "type": "github"
-      }
-    },
     "nix-doom-emacs-unstraightened": {
       "inputs": {
         "doomdir": "doomdir",
@@ -859,7 +843,6 @@
         "firefox-addons": "firefox-addons",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
-        "neovim": "neovim",
         "nix-doom-emacs-unstraightened": "nix-doom-emacs-unstraightened",
         "nix-flatpak": "nix-flatpak",
         "nix-index-database": "nix-index-database",
