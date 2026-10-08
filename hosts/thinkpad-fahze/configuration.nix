@@ -39,7 +39,9 @@ in
     ../../modules/desktop/${vars.desktop}
     ../../modules/programs/browser/${vars.browser}
     ../../modules/programs/terminal/${vars.terminal}
-    ../../modules/programs/editor/${vars.editor}
+    ../../modules/programs/editor/vscode # default editor (editor = "vscode")
+    ../../modules/programs/editor/zed
+    ../../modules/programs/editor/neovim
     ../../modules/programs/file-manager/${vars.fileManager}
     ../../modules/programs/cli/tmux
     ../../modules/programs/cli/direnv
