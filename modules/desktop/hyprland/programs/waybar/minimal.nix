@@ -354,7 +354,7 @@ in
 
             "custom/power" = {
               format = "{}";
-              on-click = "wlogout -b 4";
+              on-click = "wlogout -b 5";
               interval = 86400; # once every day
               tooltip = true;
             };

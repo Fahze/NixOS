@@ -494,7 +494,7 @@ in
             session = {
               icon_color = palette.hex.red;
               scale = 1.5;
-              actions.right = "exec wlogout -b 4";
+              actions.right = "exec wlogout -b 5";
             };
             sysmon = {
               enabled = false;

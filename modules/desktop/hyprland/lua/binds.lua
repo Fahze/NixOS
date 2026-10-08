@@ -53,8 +53,11 @@ hl.bind(mainMod .. " + delete", hl.dsp.exec_cmd("hyprshutdown")) -- kill hyperla
 hl.bind(mainMod .. " + W", hl.dsp.window.float({ action = "toggle" })) -- toggle the window on focus to float
 hl.bind(mainMod .. " + SHIFT + G", hl.dsp.group.toggle()) -- toggle the window on focus to group
 hl.bind("ALT + return", hl.dsp.window.fullscreen()) -- toggle the window on focus to fullscreen
-hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("noctalia msg session lock || hyprlock")) -- lock screen
-hl.bind(mainMod .. " + backspace", hl.dsp.exec_cmd("noctalia msg panel-toggle session || pkill -x wlogout || wlogout -b 4")) -- logout menu
+-- Lock screen: goes through logind so hypridle's lock_cmd starts a single hyprlock
+hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("loginctl lock-session"))
+hl.bind(mainMod .. " + CTRL + L", hl.dsp.exec_cmd("loginctl lock-session"))
+hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("loginctl lock-session"))
+hl.bind(mainMod .. " + backspace", hl.dsp.exec_cmd("noctalia msg panel-toggle session || pkill -x wlogout || wlogout -b 5")) -- logout menu
 hl.bind(
 	"CONTROL + ESCAPE",
 	hl.dsp.exec_cmd('pkill "waybar|noctalia|wayle|.quickshell" || ' .. bar)

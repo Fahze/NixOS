@@ -72,8 +72,10 @@ pkgs.writeShellScriptBin "keybinds-yad" ''
     "SUPER W" "Toggle floating window" "togglefloating" \
     "SUPER SHIFT G" "Toggle window group" "togglegroup" \
     "ALT Return" "Toggle fullscreen" "fullscreen" \
-    "SUPER ALT L" "Lock screen" "hyprlock" \
-    "SUPER Backspace" "Power menu" "wlogout -b 4" \
+    "SUPER X" "Lock screen" "loginctl lock-session" \
+    "SUPER CTRL L" "Lock screen" "loginctl lock-session" \
+    "SUPER ALT L" "Lock screen" "loginctl lock-session" \
+    "SUPER Backspace" "Power menu" "wlogout -b 5" \
     "CTRL Escape" "Toggle Bar" "pkill waybar|hyprpanel || waybar|hyprpanel" \
     "SUPER CTRL mouse_down" "zoom in" "zoom in" \
     "SUPER CTRL mouse_up" "zoom out" "zoom out" \
