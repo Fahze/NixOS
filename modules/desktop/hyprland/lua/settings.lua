@@ -76,11 +76,11 @@ hl.config({
 		border_size = 2,
 		col = {
 			active_border = {
-				colors = { "rgba(ca9ee6ff)", "rgba(f2d5cfff)" },
+				colors = { activeBorderStart, activeBorderEnd },
 				angle = 45,
 			},
 			inactive_border = {
-				colors = { "rgba(b4befecc)", "rgba(6c7086cc)" },
+				colors = { inactiveBorderStart, inactiveBorderEnd },
 				angle = 45,
 			},
 		},
@@ -107,19 +107,19 @@ hl.config({
 	group = {
 		col = {
 			border_active = {
-				colors = { "rgba(ca9ee6ff)", "rgba(f2d5cfff)" },
+				colors = { activeBorderStart, activeBorderEnd },
 				angle = 45,
 			},
 			border_inactive = {
-				colors = { "rgba(b4befecc)", "rgba(6c7086cc)" },
+				colors = { inactiveBorderStart, inactiveBorderEnd },
 				angle = 45,
 			},
 			border_locked_active = {
-				colors = { "rgba(ca9ee6ff)", "rgba(f2d5cfff)" },
+				colors = { activeBorderStart, activeBorderEnd },
 				angle = 45,
 			},
 			border_locked_inactive = {
-				colors = { "rgba(b4befecc)", "rgba(6c7086cc)" },
+				colors = { inactiveBorderStart, inactiveBorderEnd },
 				angle = 45,
 			},
 		},

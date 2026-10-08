@@ -1,9 +1,11 @@
 {
   pkgs,
   host,
+  lib,
   ...
 }:
 let
+  palette = import ../../../../themes/palette.nix { inherit host lib; };
   inherit (import ../../../../../hosts/${host}/variables.nix) browser;
 in
 {
@@ -17,9 +19,9 @@ in
         };
         settings = {
           global = {
-            frame_color = "#89b4fa";
+            frame_color = "${palette.hex.blue}";
             separator_color = "frame";
-            highlight = "#89b4fa";
+            highlight = "${palette.hex.blue}";
             rounded = "yes";
             origin = "top-right";
             alignment = "left";
@@ -70,19 +72,19 @@ in
           };
 
           urgency_critical = {
-            background = "#1e1e2e";
-            foreground = "#cdd6f4";
-            frame_color = "#fab387";
+            background = "${palette.hex.base}";
+            foreground = "${palette.hex.text}";
+            frame_color = "${palette.hex.peach}";
             timeout = "0";
           };
           urgency_low = {
-            background = "#1e1e2e";
-            foreground = "#cdd6f4";
+            background = "${palette.hex.base}";
+            foreground = "${palette.hex.text}";
             timeout = "4";
           };
           urgency_normal = {
-            background = "#1e1e2e";
-            foreground = "#cdd6f4";
+            background = "${palette.hex.base}";
+            foreground = "${palette.hex.text}";
             timeout = "8";
           };
         };

@@ -7,6 +7,7 @@
 let
   inherit (lib) getExe;
   vars = import ../../../hosts/${host}/variables.nix;
+  palette = import ../../themes/palette.nix { inherit host lib; };
   inherit (vars)
     bar
     browser
@@ -82,6 +83,12 @@ in
             kbdLayout = "${kbdLayout}"
             kbdVariant = "${kbdVariant}"
             kbdOptions = "${kbdOptions}"
+
+            -- Theme (Catppuccin ${palette.flavorCap}, accent ${palette.accent})
+            activeBorderStart = "rgba(${palette.accentColor}ff)"
+            activeBorderEnd = "rgba(${palette.colors.rosewater}ff)"
+            inactiveBorderStart = "rgba(${palette.colors.lavender}cc)"
+            inactiveBorderEnd = "rgba(${palette.colors.overlay0}cc)"
           '';
         };
       }

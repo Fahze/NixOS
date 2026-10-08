@@ -12,6 +12,8 @@
 #   palette.flavorCap     -> "Macchiato"
 #   palette.accent        -> "mauve"
 #   palette.accentHex     -> "#c6a0f6"
+#   palette.rgb.base      -> "rgb(36, 39, 58)"
+#   palette.tuple.base    -> "36, 39, 58"
 { host, lib }:
 let
   vars = import ../../hosts/${host}/variables.nix;
@@ -138,6 +140,15 @@ let
     flavors.${flavor}
       or (throw "catppuccinFlavor must be one of: ${lib.concatStringsSep ", " (builtins.attrNames flavors)} (got \"${flavor}\")");
 
+  # "c6a0f6" -> "198, 160, 246"
+  hexToTuple =
+    c:
+    let
+      channel = i: toString (lib.fromHexString (builtins.substring i 2 c));
+    in
+    "${channel 0}, ${channel 2}, ${channel 4}";
+  hexToRgb = c: "rgb(${hexToTuple c})";
+
   capitalize = s: lib.toUpper (builtins.substring 0 1 s) + builtins.substring 1 (-1) s;
 in
 {
@@ -147,6 +158,12 @@ in
 
   # Same colors with a leading "#".
   hex = lib.mapAttrs (_: c: "#${c}") colors;
+
+  # Same colors as "rgb(r, g, b)" (Hyprland / hyprlock syntax).
+  rgb = lib.mapAttrs (_: hexToRgb) colors;
+  # Bare "r, g, b" tuples, for CSS rgba(r, g, b, alpha).
+  tuple = lib.mapAttrs (_: hexToTuple) colors;
+  accentRgb = hexToRgb colors.${accent};
 
   accentColor =
     colors.${accent}

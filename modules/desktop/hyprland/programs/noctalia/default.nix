@@ -6,6 +6,7 @@
   ...
 }:
 let
+  palette = import ../../../../themes/palette.nix { inherit host lib; };
   inherit (import ../../../../../hosts/${host}/variables.nix)
     timezone
     clock24h
@@ -424,7 +425,7 @@ in
           };
           theme = {
             builtin = "Catppuccin";
-            community_palette = "Catppuccin Macchiato Mauve";
+            community_palette = "Catppuccin ${palette.flavorCap} ${palette.accentCap}";
             mode = "dark";
             source = "community";
             templates = {
