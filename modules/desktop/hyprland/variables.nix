@@ -6,7 +6,8 @@
 }:
 let
   inherit (lib) getExe;
-  inherit (import ../../../hosts/${host}/variables.nix)
+  vars = import ../../../hosts/${host}/variables.nix;
+  inherit (vars)
     bar
     browser
     terminal
@@ -16,6 +17,7 @@ let
     capslockAsESC
     defaultWallpaper
     ;
+  kbdOptions = vars.kbdOptions or "";
 
   # Import script modules
   # autowaybar = pkgs.callPackage ./scripts/autowaybar.nix { };
@@ -66,6 +68,7 @@ in
             capslockAsESC = ${lib.boolToString capslockAsESC}
             kbdLayout = "${kbdLayout}"
             kbdVariant = "${kbdVariant}"
+            kbdOptions = "${kbdOptions}"
           '';
         };
       }

@@ -26,13 +26,15 @@
   batterySupport = true; # Whether device has a battery (laptop)
 
   # Localization
-  # NOTE: locale and keyboard values are still the upstream ones on purpose:
-  # they are reworked in phase 2 (locale/keyboard) to isolate evaluation errors.
   timezone = "Europe/Paris";
-  locale = "en_GB.UTF-8";
+  locale = "en_US.UTF-8"; # system language (LANG)
+  regionalLocale = "fr_FR.UTF-8"; # formats: date, currency, numbers, paper, units... (LC_*)
   clock24h = true;
-  kbdLayout = "gb";
-  kbdVariant = "extd";
+  # Physical keyboard is English (UK). Layouts: gb (extd) first, fr second.
+  # kbdLayout / kbdVariant are comma-separated lists, one entry per layout.
+  kbdLayout = "gb,fr";
+  kbdVariant = "extd,";
+  kbdOptions = "grp:alt_shift_toggle"; # Alt+Shift switches layout
   consoleKeymap = "uk";
   capslockAsESC = false;
 }

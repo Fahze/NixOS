@@ -35,8 +35,8 @@ end)
 hl.config({
 	input = (function()
 		local t = {
-			kb_layout = kbdLayout .. ",ru",
-			kb_variant = kbdVariant .. ",",
+			kb_layout = kbdLayout,
+			kb_variant = kbdVariant,
 			repeat_delay = 275,
 			repeat_rate = 35,
 			numlock_by_default = true,
@@ -55,8 +55,15 @@ hl.config({
 			force_no_accel = true,
 		}
 
+		local kbOptions = {}
+		if kbdOptions ~= "" then
+			table.insert(kbOptions, kbdOptions)
+		end
 		if capslockAsESC then
-			t.kb_options = "caps:swapescape"
+			table.insert(kbOptions, "caps:swapescape")
+		end
+		if #kbOptions > 0 then
+			t.kb_options = table.concat(kbOptions, ",")
 		end
 
 		return t

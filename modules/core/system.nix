@@ -8,7 +8,8 @@
   ...
 }:
 let
-  inherit (import ../../hosts/${host}/variables.nix)
+  vars = import ../../hosts/${host}/variables.nix;
+  inherit (vars)
     consoleKeymap
     kbdLayout
     kbdVariant
@@ -16,6 +17,15 @@ let
     timezone
     capslockAsESC
     ;
+  # Optional variables: hosts that do not define them keep the previous behaviour.
+  regionalLocale = vars.regionalLocale or locale;
+  kbdOptions = vars.kbdOptions or "";
+  xkbOptions = lib.concatStringsSep "," (
+    lib.filter (o: o != "") [
+      kbdOptions
+      (lib.optionalString capslockAsESC "caps:swapescape")
+    ]
+  );
 in
 {
   imports = [ inputs.nix-index-database.nixosModules.nix-index ];
@@ -33,7 +43,7 @@ in
     xkb = {
       layout = "${kbdLayout}";
       variant = "${kbdVariant}";
-      options = "caps:swapescape";
+      options = xkbOptions;
     };
   };
   nix = {
@@ -80,15 +90,15 @@ in
   time.timeZone = "${timezone}";
   i18n.defaultLocale = "${locale}";
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "${locale}";
-    LC_IDENTIFICATION = "${locale}";
-    LC_MEASUREMENT = "${locale}";
-    LC_MONETARY = "${locale}";
-    LC_NAME = "${locale}";
-    LC_NUMERIC = "${locale}";
-    LC_PAPER = "${locale}";
-    LC_TELEPHONE = "${locale}";
-    LC_TIME = "${locale}";
+    LC_ADDRESS = "${regionalLocale}";
+    LC_IDENTIFICATION = "${regionalLocale}";
+    LC_MEASUREMENT = "${regionalLocale}";
+    LC_MONETARY = "${regionalLocale}";
+    LC_NAME = "${regionalLocale}";
+    LC_NUMERIC = "${regionalLocale}";
+    LC_PAPER = "${regionalLocale}";
+    LC_TELEPHONE = "${regionalLocale}";
+    LC_TIME = "${regionalLocale}";
   };
   environment.variables = {
     templates = "${self}/dev-shells";
