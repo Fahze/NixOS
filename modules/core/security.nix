@@ -12,6 +12,5 @@
 
     # Prevent replacing the running kernel without a reboot
     protectKernelImage = true;
-    acme.acceptTerms = true;
   };
 }
