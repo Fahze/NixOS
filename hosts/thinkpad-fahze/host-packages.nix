@@ -18,5 +18,6 @@
 
     #Temporaire Ynov Netbird (VPN)
     netbird-ui
+    netbird
   ];
 }
