@@ -4,11 +4,11 @@
 #   see docs/INSTALL.md ("Secrets bootstrap").
 keys:
   - &fahze age15tmed4vegh6lf65zdw5ylh742tgsj6kk4shtwsmp3cgtalw36qlsx9xg6n
-  # - &thinkpad-fahze age1...
+  - &thinkpad-fahze age15vw94l8lmduk6e54qxnv2srt03edmu52ha8x5rejl9dru82ync2q2y4zas
 
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
       - age:
           - *fahze
-          # - *thinkpad-fahze
+          - *thinkpad-fahze
