@@ -1,217 +1,61 @@
-<h1 align="center">
-   <img src="assets/nixos-logo.png" width="100px" /> 
-   <br>
-      My NixOS Configuration
-   <br>
-      <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="600px" /> <br>
-   <div align="center">
+# NixOS configuration for a ThinkPad P14s Gen 5 (AMD)
 
-   <div align="center">
-      <p></p>
-      <div align="center">
-         <a href="https://github.com/Sly-Harvey/NixOS/stargazers">
-            <img src="https://img.shields.io/github/stars/Sly-Harvey/NixOS?color=F5BDE6&labelColor=303446&style=for-the-badge&logo=starship&logoColor=F5BDE6">
-         </a>
-         <a href="https://github.com/Sly-Harvey/NixOS/network/members">
-            <img src="https://img.shields.io/github/forks/Sly-Harvey/NixOS?color=C6A0F6&labelColor=303446&style=for-the-badge&logo=git&logoColor=C6A0F6" alt="GitHub Forks">
-         </a>
-         <!-- <a href="https://github.com/Sly-Harvey/NixOS/"> -->
-         <!--    <img src="https://img.shields.io/github/repo-size/Sly-Harvey/NixOS?color=C6A0F6&labelColor=303446&style=for-the-badge&logo=github&logoColor=C6A0F6"> -->
-         <!-- </a> -->
-         <a = href="https://nixos.org">
-            <img src="https://img.shields.io/badge/NixOS-Unstable-blue?style=for-the-badge&logo=NixOS&logoColor=91D7E3&label=NixOS&labelColor=303446&color=91D7E3">
-            <!-- <img src="https://img.shields.io/badge/NixOS-unstable-blue.svg?style=for-the-badge&labelColor=303446&logo=NixOS&logoColor=white&color=91D7E3"> -->
-         </a>
-         <a href="https://github.com/Sly-Harvey/NixOS/blob/main/LICENSE">
-            <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=MIT&colorA=313244&colorB=F5A97F&logo=unlicense&logoColor=F5A97F&"/>
-         </a>
-      </div>
-      <div align="center">
-        <a href="https://ko-fi.com/Q5Q41CX0Z3"><img src="https://ko-fi.com/img/githubbutton_sm.svg" /></a>
-      </div>
-      <br>
-   </div>
-</h1>
+Personal NixOS flake for my Lenovo ThinkPad P14s Gen 5 AMD (host `thinkpad-fahze`, user `fahze`).
 
-## Screenshots
+This repository is a fork of [Sly-Harvey/NixOS](https://github.com/Sly-Harvey/NixOS) (MIT),
+reworked for a single laptop. See [Credits](#credits).
 
-![Screenshot](assets/preview1.png)
-![Screenshot](assets/preview2.png)
+> **Status:** work in progress. The configuration evaluates, but the host has not been installed yet.
 
-<details>
-<summary>More screenshots</summary>
+## What it sets up
 
-![Screenshot](assets/preview3.png)
-![Screenshot](assets/preview4.png)
-![Screenshot](assets/preview5.png)
+- **System:** NixOS (`nixos-unstable`), flakes, GRUB with os-prober, LUKS2 + btrfs.
+- **Desktop:** Hyprland (Lua configuration), waybar, hyprlock/hypridle, swaync, rofi, SDDM.
+- **Theme:** Catppuccin, driven by two variables (`catppuccinFlavor`, `catppuccinAccent`) through
+  [`modules/themes/palette.nix`](../modules/themes/palette.nix). Currently Macchiato / mauve.
+- **Laptop:** TLP tuned for AMD (amd-pstate, charge thresholds 82-90 %), lid and power key handling
+  with logind, fingerprint reader (fprintd, also used by hyprlock), fwupd.
+- **Dev:** Docker, Node.js and pnpm, Rust, `nix-ld`, VS Code / Zed / Neovim, tmux, lazygit.
+- **Secrets:** [sops-nix](https://github.com/Mic92/sops-nix) with age. The user password is stored
+  encrypted in `secrets/secrets.yaml`, `root` is locked and users are immutable.
+- **Home:** home-manager as a NixOS module.
 
-</details>
+## Layout
 
-## Table of Contents
+| Path | Content |
+| --- | --- |
+| `flake.nix` | Inputs and the `thinkpad-fahze` host |
+| `hosts/thinkpad-fahze/` | `variables.nix`, `configuration.nix`, `hardware-configuration.nix`, `host-packages.nix` |
+| `modules/core/` | System basics: boot, users, secrets, network, shell, services |
+| `modules/hardware/` | Laptop, GPU drivers |
+| `modules/desktop/` | Desktop environments (Hyprland is the one in use) |
+| `modules/programs/` | Applications, selected by variables (terminal, editor, browser...) |
+| `modules/themes/` | Catppuccin palette, GTK/Qt theme, wallpapers |
+| `modules/dev/` | Docker and language toolchains |
+| `secrets/`, `.sops.yaml` | Encrypted secrets and their recipients |
+| `docs/INSTALL.md` | Installation guide (French) |
+| `old/` | Upstream assets kept for later |
 
-- [Installation](#installation)
-  <!-- - [Before You Begin](#before-you-begin) -->
-  <!-- - [Installation Steps](#installation-steps) -->
-- [Usage](#usage)
-  - [Managing Hosts](#managing-hosts)
-  - [Rebuilding](#rebuilding)
-  - [Rollbacks](#rollbacks)
-  - [Keybindings](#keybindings)
-- [Development Shells](#development-shells)
-- [Credits](#creditsinspiration)
+Most choices are variables in [`hosts/thinkpad-fahze/variables.nix`](../hosts/thinkpad-fahze/variables.nix)
+(desktop, bar, terminal, editor, browser, keyboard layouts, locale, theme...).
 
-## Installation
+## Install
 
-> [!Note]
-> Before proceeding with the installation, check these files and adjust them for your system:
->
-> - `hosts/Default/variables.nix`: Contains host-specific variables.
-> - `hosts/Default/host-packages.nix`: Lists installed packages for the host.
-> - `hosts/Default/configuration.nix`: Module imports for the host and extra configuration.
+Follow [`docs/INSTALL.md`](../docs/INSTALL.md). `install.sh` and `live-install.sh` come from the
+upstream repository, still refer to its example hosts and **do not work** with this fork yet.
 
-<!-- You can install this configuration either on a running system or from the NixOS live installer. The minimal ISO is recommended and can be downloaded from the [official NixOS website](https://nixos.org/download/#nixos-iso). -->
-
-You can install on a running system or from the NixOS live installer. Get the minimal ISO from the [NixOS website](https://nixos.org/download/#nixos-iso).
-
-### Installation Steps
-
-1. Clone the Repository:
+## Daily use
 
 ```bash
-git clone https://github.com/Sly-Harvey/NixOS.git ~/NixOS
+rebuild                                   # nixos-rebuild switch for this host
+sudo nixos-rebuild switch --flake .#thinkpad-fahze
+nix fmt                                   # format the tree
 ```
 
-<!-- 2. Navigate to the Directory: -->
+Nix only sees files tracked by git: `git add` new files before rebuilding.
 
-2. Change Directory:
+## Credits
 
-```bash
-cd ~/NixOS
-```
-
-3. Run the Installer:
-
-```bash
-./install.sh
-```
-
-<!-- The script handles host setup, username configuration, and automatically generates `hardware-configuration.nix` based on your hardware. -->
-
-The install and rebuild scripts automate the setup process, including hosts, username, and applying the configuration. It also automatically generates the hardware-configuration.nix file based on your system's detected hardware, eliminating the need to manually generate it.
-
-## Usage
-
-### Managing Hosts
-
-**Method 1: Automatic** - run the installer again to select or create another host:
-
-```bash
-./install.sh
-```
-
-**Method 2: Manual:**
-
-1. Copy `hosts/Default` to a new directory (e.g., `hosts/Laptop`)
-2. Edit the new host's `variables.nix` and `host-packages.nix`
-3. Add the host to `flake.nix`:
-
-   ```nix
-   nixosConfigurations = {
-     Default = mkHost "Default";
-     Laptop = mkHost "Laptop";
-   };
-   ```
-
-4. Track the new host with git:
-   ```bash
-   git add hosts/Laptop
-   ```
-
-<!-- 4. Rebuild with the new hostname (see below) -->
-
-5. Rebuild with the new hostname using either `nixos-rebuild` or `nh` (see [Rebuilding](#rebuilding) below). Once rebuilt, you can use either the shortcut or `rebuild` command, as the host name will be implicitly recognised.
-
-### Rebuilding
-
-Apply configuration changes:
-
-- **Keyboard shortcut:** `Super + U`
-- **rebuild script:** `rebuild`
-- **nixos-rebuild:** `sudo nixos-rebuild switch --flake ~/NixOS#<HOST>`
-- **nh:** `nh os switch --hostname <HOST>`
-
-Replace `<HOST>` with the name of your host (e.g., `Laptop`).
-
-### Rollbacks
-
-List generations:
-
-```bash
-list-gens
-```
-
-Rollback to generation N:
-
-```bash
-rollback N
-```
-
-Replace `N` with the generation number (e.g., `69`).
-
-### Keybindings
-
-View all keybindings with `Super + ?` or `Super + Ctrl + K`.
-
-## Development Shells
-
-Pre-configured dev shells for various languages are included.
-
-Initialize a project from a template:
-
-```bash
-nix flake init -t ~/NixOS#<TEMPLATE_NAME>
-```
-
-Or create a new project directory:
-
-```bash
-nix flake new -t ~/NixOS#<TEMPLATE_NAME> <PROJECT_NAME>
-```
-
-Templates are defined in `dev-shells/default.nix` (python, node, etc.).
-
-Enter the shell:
-
-```bash
-cd <PROJECT_NAME>
-nix develop
-```
-
-If you're using direnv, `direnv allow` can be used to activate the shell automatically when entering the directory.
-
-## Credits/Inspiration
-
-| Credit                                                        | Reason                       |
-| ------------------------------------------------------------- | ---------------------------- |
-| [Hyprland-Dots](https://github.com/JaKooLit/Hyprland-Dots)    | Scripts and Waybar templates |
-| [HyDE](https://github.com/HyDE-Project/HyDE)                  | Additional scripts           |
-| [rofi](https://github.com/adi1090x/rofi)                      | Rofi launcher styles         |
-| [dev-templates](https://github.com/the-nix-way/dev-templates) | Development templates        |
-| [Vimjoyer](https://www.youtube.com/@vimjoyer)                 | NixOS tutorials              |
-
-<!-- ---
-
-## ⭐ Star History
-
-<details>
-<summary>View Star History</summary>
-
-<a href="https://github.com/Sly-Harvey/NixOS/stargazers">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Sly-Harvey/NixOS&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Sly-Harvey/NixOS&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Sly-Harvey/NixOS&type=Date" />
- </picture>
-</a>
-
-</details> -->
+Based on [Sly-Harvey/NixOS](https://github.com/Sly-Harvey/NixOS) by Harvey Jacobs-Grant, released
+under the MIT license (see [`LICENSE`](../LICENSE)). Catppuccin colors come from the
+[Catppuccin](https://github.com/catppuccin/catppuccin) project.
