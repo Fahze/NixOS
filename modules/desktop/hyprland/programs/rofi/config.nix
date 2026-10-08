@@ -1,4 +1,9 @@
-{ terminal, lib, pkgs, ... }:
+{
+  terminal,
+  lib,
+  pkgs,
+  ...
+}:
 {
   # ---------- General setting ----------
   modi = "drun,run,filebrowser,window";

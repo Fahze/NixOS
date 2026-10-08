@@ -20,9 +20,7 @@ in
     ./programs/hypridle
     ./programs/hyprlock
   ]
-  ++ optional (
-    bar == "waybar"
-  ) ./programs/swaync;
+  ++ optional (bar == "waybar") ./programs/swaync;
 
   # Dependencies
   environment.systemPackages = with pkgs; [
