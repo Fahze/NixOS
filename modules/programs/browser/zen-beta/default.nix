@@ -1,9 +1,13 @@
 {
   inputs,
+  host,
   lib,
   pkgs,
   ...
 }:
+let
+  palette = import ../../../themes/palette.nix { inherit host lib; };
+in
 {
   # environment.systemPackages = with pkgs; [inputs.zen-browser.packages.${stdenv.hostPlatform.system}.default];
   home-manager.sharedModules = [
@@ -25,8 +29,8 @@
             settings = import ./settings.nix { inherit lib; };
             bookmarks = import ../bookmarks.nix;
             search = import ./search.nix { inherit pkgs; };
-            userChrome = builtins.readFile ./userChrome.css;
-            userContent = builtins.readFile ./userContent.css;
+            userChrome = palette.fromKnown (builtins.readFile ./userChrome.css);
+            userContent = palette.fromKnown (builtins.readFile ./userContent.css);
             mods = [
               "d8b79d4a-6cba-4495-9ff6-d6d30b0e94fe" # Better Active Tabs
               "f7c71d9a-bce2-420f-ae44-a64bd92975ab" # Better Unloaded Tabs

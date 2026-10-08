@@ -1,8 +1,12 @@
 {
   inputs,
+  host,
   lib,
   ...
 }:
+let
+  palette = import ../../../themes/palette.nix { inherit host lib; };
+in
 {
   # allow spotify to be installed if you don't have unfree enabled already
   nixpkgs.config.allowUnfreePredicate =
@@ -24,7 +28,7 @@
         programs.spicetify = {
           enable = true;
           theme = spicePkgs.themes.catppuccin;
-          colorScheme = "mocha";
+          colorScheme = palette.flavor;
           # windowManagerPatch = config.programs.hyprland.enable;
           enabledExtensions = with spicePkgs.extensions; [
             adblock

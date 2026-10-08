@@ -149,10 +149,21 @@ let
     "${channel 0}, ${channel 2}, ${channel 4}";
   hexToRgb = c: "rgb(${hexToTuple c})";
 
+  # Rewrite the Catppuccin hex colors (Mocha and Macchiato) found in a static
+  # stylesheet to the selected flavor. Used for CSS that cannot be templated.
+  fromKnown =
+    text:
+    let
+      names = builtins.attrNames flavors.mocha;
+      known = map (n: "#${flavors.mocha.${n}}") names ++ map (n: "#${flavors.macchiato.${n}}") names;
+      target = map (n: "#${colors.${n}}") (names ++ names);
+    in
+    builtins.replaceStrings known target text;
+
   capitalize = s: lib.toUpper (builtins.substring 0 1 s) + builtins.substring 1 (-1) s;
 in
 {
-  inherit flavor accent colors;
+  inherit flavor accent colors fromKnown;
   flavorCap = capitalize flavor;
   accentCap = capitalize accent;
 

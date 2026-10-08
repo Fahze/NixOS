@@ -1,8 +1,14 @@
-{ pkgs, ... }:
+{
+  host,
+  lib,
+  pkgs,
+  ...
+}:
 let
+  palette = import ../../../themes/palette.nix { inherit host lib; };
   discordTheme = ''
     /**
-    * @name Catppuccin Mocha
+    * @name Catppuccin ${palette.flavorCap}
     * @author winston#0001
     * @authorId 505490445468696576
     * @version 0.2.0
@@ -11,14 +17,14 @@ let
     * @invite r6Mdz5dpFc
     * **/
 
-    @import url("https://catppuccin.github.io/discord/dist/catppuccin-mocha-mauve.theme.css");
+    @import url("https://catppuccin.github.io/discord/dist/catppuccin-${palette.flavor}-${palette.accent}.theme.css");
   '';
   vesktopConfig = builtins.toJSON {
     discordBranch = "stable";
     minimizeToTray = true;
     arRPC = true;
-    splashColor = "rgb(205, 214, 244)";
-    splashBackground = "rgb(17, 17, 27)";
+    splashColor = palette.rgb.text;
+    splashBackground = palette.rgb.crust;
     enableSplashScreen = false;
     splashTheming = true;
   };
@@ -29,7 +35,7 @@ let
     useQuickCss = true;
     themeLinks = [ ];
     enabledThemes = [
-      "catppuccin-mocha.css"
+      "catppuccin-${palette.flavor}.css"
     ];
     enableReactDevtools = false;
     frameless = false;
@@ -272,11 +278,11 @@ in
       ];
 
       xdg.configFile."Vencord/settings/settings.json".text = discordConfig;
-      xdg.configFile."Vencord/themes/catppuccin-mocha.css".text = discordTheme;
+      xdg.configFile."Vencord/themes/catppuccin-${palette.flavor}.css".text = discordTheme;
 
       xdg.configFile."vesktop/settings.json".text = vesktopConfig;
       xdg.configFile."vesktop/settings/settings.json".text = discordConfig;
-      xdg.configFile."vesktop/themes/catppuccin-mocha.css".text = discordTheme;
+      xdg.configFile."vesktop/themes/catppuccin-${palette.flavor}.css".text = discordTheme;
 
       # Rename "vesktop" to "Discord" and change the icon
       xdg.desktopEntries = {

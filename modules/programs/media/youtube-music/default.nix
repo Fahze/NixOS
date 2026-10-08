@@ -1,8 +1,12 @@
 {
+  host,
   pkgs,
   lib,
   ...
 }:
+let
+  palette = import ../../../themes/palette.nix { inherit host lib; };
+in
 {
   home-manager.sharedModules = [
     (
@@ -39,7 +43,7 @@
             overrideUserAgent = false;
             usePodcastParticipantAsArtist = false;
             themes = [
-              "${config.home.homeDirectory}/.config/YouTube Music/themes/catppuccin-mocha.css"
+              "${config.home.homeDirectory}/.config/YouTube Music/themes/catppuccin-${palette.flavor}.css"
             ];
           };
           plugins = {
@@ -158,13 +162,13 @@
 
         home.activation.setupYoutubeMusic = lib.mkAfter ''
           THEME_DIR="$HOME/.config/YouTube Music/themes"
-          THEME_FILE="$THEME_DIR/catppuccin-mocha.css"
+          THEME_FILE="$THEME_DIR/catppuccin-${palette.flavor}.css"
           mkdir -p "$THEME_DIR"
           if ! [ -f "$THEME_FILE" ]; then
             echo "YouTube Music theme not found. Downloading..."
             export PATH=${pkgs.curl}/bin:$PATH
             mkdir -p "$THEME_DIR"
-            curl -sSfL "https://raw.githubusercontent.com/catppuccin/youtubemusic/main/src/macchiato.css" -o "$THEME_FILE"
+            curl -sSfL "https://raw.githubusercontent.com/catppuccin/youtubemusic/main/src/${palette.flavor}.css" -o "$THEME_FILE"
           fi
 
           CONFIG_DIR="$HOME/.config/YouTube Music"
