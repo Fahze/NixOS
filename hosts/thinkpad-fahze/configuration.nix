@@ -32,6 +32,7 @@ in
 
     # Optional
     # ../../modules/hardware/drives # My personal drives
+    ../../modules/hardware/laptop.nix
     ../../modules/hardware/video/${vars.videoDriver}.nix
     ../../modules/desktop/${vars.desktop}
     ../../modules/programs/browser/${vars.browser}
