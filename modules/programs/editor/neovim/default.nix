@@ -1,5 +1,4 @@
 {
-  inputs,
   host,
   pkgs,
   ...
@@ -17,8 +16,12 @@ in
   ]; # Dependencies
   home-manager.sharedModules = [
     (_: {
-      programs.neovim.enable = true;
-      xdg.configFile."nvim".source = inputs.neovim;
+      # Standard, minimal Neovim (no external configuration).
+      programs.neovim = {
+        enable = true;
+        viAlias = true;
+        vimAlias = true;
+      };
       xdg.desktopEntries = {
         "nvim" = {
           name = "Neovim wrapper";
