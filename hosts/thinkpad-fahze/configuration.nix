@@ -49,8 +49,9 @@ in
     ../../modules/programs/cli/btop
     # ../../modules/programs/cli/cava
     # ../../modules/programs/cli/fastfetch
-    # ../../modules/programs/media/discord
-    # ../../modules/programs/media/spicetify
+    ../../modules/programs/media/discord
+    ../../modules/programs/media/spicetify
+    ../../modules/programs/media/zathura
     # ../../modules/programs/media/youtube-music
     # ../../modules/programs/media/thunderbird
     # ../../modules/programs/media/obs-studio

@@ -8,5 +8,12 @@
     gitkraken
     # github-desktop
     # pokego # Overlayed
+
+    libreoffice
+    hunspell
+    hunspellDicts.fr-any
+    hunspellDicts.en_GB-ise
+    prismlauncher # Minecraft
+    claude-code
   ];
 }
