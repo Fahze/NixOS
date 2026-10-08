@@ -20,18 +20,13 @@ pkgs.writeShellScriptBin "rebuild" ''
   fi
   echo -e "''${GREEN}Flake: $flake''${NC}"
   echo -e "''${GREEN}Host: ${host}''${NC}"
-  currentUser=$(logname)
 
-  # replace username variable in variables.nix with $USER
-  sudo sed -i -e "s/username = \".*\"/username = \"$currentUser\"/" "$flake/hosts/${host}/variables.nix"
-
-  if [ -f "/etc/nixos/hardware-configuration.nix" ]; then
-    cat "/etc/nixos/hardware-configuration.nix" | sudo tee "$flake/hosts/${host}/hardware-configuration.nix" >/dev/null
-  else
-    sudo nixos-generate-config --show-hardware-config >"$flake/hosts/${host}/hardware-configuration.nix"
+  # Nix only sees files tracked by git: warn about new untracked files.
+  untracked=$(git -C "$flake" ls-files --others --exclude-standard 2>/dev/null)
+  if [ -n "$untracked" ]; then
+    echo -e "''${RED}Untracked files are ignored by the flake (git add them first):''${NC}"
+    echo "$untracked"
   fi
-
-  sudo git -C "$flake" add hosts/${host}/hardware-configuration.nix
 
   # nh os switch --hostname "${host}"
   sudo nixos-rebuild switch --flake "$flake#${host}"
