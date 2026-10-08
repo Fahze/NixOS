@@ -1,7 +1,13 @@
-{ host, pkgs, ... }:
+{
+  host,
+  lib,
+  pkgs,
+  ...
+}:
 let
-  variant = "mocha";
-  accent = "mauve";
+  palette = import ../palette.nix { inherit host lib; };
+  variant = palette.flavor;
+  inherit (palette) accent isDark;
   catppuccin-kvantum-pkg = pkgs.catppuccin-kvantum.override { inherit variant accent; };
   catppuccin = "catppuccin-${variant}-${accent}";
 in
@@ -32,23 +38,23 @@ in
             # package = pkgs.adwaita-icon-theme;
             # name = "Adwaita";
             package = pkgs.papirus-icon-theme;
-            name = "Papirus-Dark";
+            name = if isDark then "Papirus-Dark" else "Papirus-Light";
           };
           gtk3.extraConfig = {
-            "gtk-application-prefer-dark-theme" = "1";
+            "gtk-application-prefer-dark-theme" = if isDark then "1" else "0";
           };
           gtk4.extraConfig = {
-            "gtk-application-prefer-dark-theme" = "1";
+            "gtk-application-prefer-dark-theme" = if isDark then "1" else "0";
           };
         };
 
         home.sessionVariables = {
-          ADW_COLOR_SCHEME = "prefer-dark"; # Libadwaita
+          ADW_COLOR_SCHEME = if isDark then "prefer-dark" else "prefer-light"; # Libadwaita
         };
 
         dconf.settings = {
           "org/gnome/desktop/interface" = {
-            color-scheme = "prefer-dark";
+            color-scheme = if isDark then "prefer-dark" else "prefer-light";
           };
         };
 
