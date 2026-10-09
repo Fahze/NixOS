@@ -18,7 +18,7 @@
   environment.systemPackages = with pkgs; [
     lutris
     heroic
-    stable.bottles
+    bottles
     moonlight-qt
     # ryujinx
     # prismlauncher
