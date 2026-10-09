@@ -9,6 +9,7 @@
         enableZshIntegration = true;
         enableFishIntegration = false;
         enableNushellIntegration = false;
+        nix-direnv.enable = true;
       };
       # home.sessionVariables = {
       #   # DIRENV_DIR = "/tmp/direnv";
