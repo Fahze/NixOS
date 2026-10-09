@@ -45,7 +45,14 @@ let
   keybinds-yad = pkgs.callPackage ./scripts/keybinds-yad.nix { };
   # keybinds-rofi = pkgs.callPackage ./scripts/keybinds-yad.nix { };
   # mediactrl = pkgs.callPackage ./scripts/mediactrl.nix { };
-  launcher = pkgs.callPackage ../../scripts/launcher.nix { inherit lib pkgs terminal; };
+  launcher = pkgs.callPackage ../../scripts/launcher.nix {
+    inherit
+      lib
+      pkgs
+      terminal
+      waybarSwitch
+      ;
+  };
   rofimusic = pkgs.callPackage ./scripts/rofimusic.nix { };
   screen-record = pkgs.callPackage ./scripts/screen-record.nix { };
   screenshot = pkgs.callPackage ./scripts/screenshot.nix { };

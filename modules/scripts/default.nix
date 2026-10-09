@@ -6,7 +6,10 @@
   ...
 }:
 let
-  inherit (import ../../hosts/${host}/variables.nix) terminal;
+  inherit (import ../../hosts/${host}/variables.nix) terminal waybarTheme;
+  waybarSwitch = pkgs.callPackage ../desktop/hyprland/scripts/waybar-switch.nix {
+    inherit waybarTheme;
+  };
 in
 let
   # Define your custom args once
@@ -17,6 +20,7 @@ let
       lib
       config
       terminal
+      waybarSwitch
       ;
   };
 

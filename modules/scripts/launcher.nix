@@ -2,6 +2,7 @@
   lib,
   pkgs,
   terminal,
+  waybarSwitch,
   ...
 }:
 let
@@ -88,6 +89,18 @@ pkgs.writeShellScriptBin "launcher" ''
 
     awww img "$WALLPAPER_DIR/$CHOICE" --transition-step 90 --transition-duration 1 --transition-fps 60 --transition-type wipe
     ;;
+  bar-theme)
+    rofi_theme="''${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/type-4/style-4.rasi"
+    r_override="entry{placeholder:'Select Waybar Theme...';}listview{lines:6;}"
+
+    THEMES_DIR="''${XDG_CONFIG_HOME:-$HOME/.config}/waybar/themes"
+    CHOICE=$(find "$THEMES_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null \
+      | sort \
+      | rofi -dmenu -i -theme-str "$r_override" -theme "$rofi_theme")
+    [ -z "$CHOICE" ] && exit 0
+
+    ${lib.getExe waybarSwitch} "$CHOICE"
+    ;;
   emoji)
     rofi_theme="''${XDG_CONFIG_HOME:-$HOME/.config}/rofi/launchers/type-4/style-4.rasi"
     r_override="entry{placeholder:'Search Emojis...';}listview{lines:15;}"
@@ -110,6 +123,7 @@ pkgs.writeShellScriptBin "launcher" ''
     echo "  file         Browse and search files"
     echo "  tmux         Search active tmux sessions"
     echo "  wallpaper    Search and set wallpapers"
+    echo "  bar-theme    Switch the waybar theme"
     echo "  emoji        Search and insert emojis"
     echo "  games        Launch games menu"
     echo "  help         Display this help message"
