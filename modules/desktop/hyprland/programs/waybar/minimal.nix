@@ -399,6 +399,8 @@ in
           @define-color flamingo  ${palette.hex.flamingo};
           @define-color rosewater ${palette.hex.rosewater};
 
+          @define-color accent ${palette.accentHex};
+
           window#waybar {
             transition-property: background-color;
             transition-duration: 0.5s;
@@ -411,7 +413,7 @@ in
           }
 
           tooltip {
-            background: @theme_base_color;
+            background: alpha(@base, 0.85);
             border-radius: 9px;
           }
 
@@ -423,22 +425,22 @@ in
 
           /* This section can be use if you want to separate waybar modules */
           .modules-left {
-            background: @theme_base_color;
-            border: 1px solid @blue;
+            background: alpha(@base, 0.85);
+            border: 1px solid @accent;
             padding-right: 16px;
             padding-left: 3px;
             border-radius: 11px;
           }
           .modules-center {
-            background: @theme_base_color;
+            background: alpha(@base, 0.85);
             border: 1px solid @overlay0;
             padding-right: 6px;
             padding-left: 6px;
             border-radius: 11px;
           }
           .modules-right {
-            background: @theme_base_color;
-            border: 1px solid @blue;
+            background: alpha(@base, 0.85);
+            border: 1px solid @accent;
             padding-right: 16px;
             padding-left: 16px;
             border-radius: 11px;
@@ -609,7 +611,7 @@ in
           }
 
           #workspaces button.active {
-            color: @peach;
+            color: @accent;
             border-radius: 11px;
             padding-left: 9px;
             padding-right: 9px;
