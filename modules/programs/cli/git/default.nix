@@ -25,6 +25,7 @@
 
       # gitCredentialHelper.enable defaults to true already.
       programs.gh.enable = true;
+      programs.gh.settings.git_protocol = "ssh";
     })
   ];
 }
