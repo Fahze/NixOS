@@ -17,5 +17,6 @@ in
     nvd
     nixd
     nixfmt-tree
+    nixfmt # single-file formatter nixd/nix-ide call directly; nixfmt-tree only exposes "treefmt"
   ];
 }
