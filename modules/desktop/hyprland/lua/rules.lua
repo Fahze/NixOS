@@ -14,6 +14,13 @@ hl.layer_rule({
 	ignore_alpha = 0.7,
 })
 
+-- Waybar (minimal theme: semi-transparent floating islands)
+hl.layer_rule({
+	match = { namespace = "^(waybar)$" },
+	blur = true,
+	ignore_alpha = 0.3,
+})
+
 -- Swaync
 hl.layer_rule({
 	match = { namespace = "^(swaync-control-center)$" },
