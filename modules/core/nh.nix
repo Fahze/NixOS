@@ -12,8 +12,10 @@ in
     flake = "/home/${username}/NixOS";
   };
 
-  # environment.systemPackages = with pkgs; [
-  #   nix-output-monitor
-  #   nvd
-  # ];
+  environment.systemPackages = with pkgs; [
+    nix-output-monitor
+    nvd
+    nixd
+    nixfmt-tree
+  ];
 }
