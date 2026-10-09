@@ -322,7 +322,9 @@ hl.window_rule({
 	center = true,
 	size = "980 340",
 })
+-- Loupe replaces eog (never installed) as the default image viewer.
+-- Verify the real class with `hyprctl clients` after activation.
 hl.window_rule({
-	match = { class = "^(eog)$" },
+	match = { class = "^(org\\.gnome\\.Loupe)$" },
 	float = true,
 })
