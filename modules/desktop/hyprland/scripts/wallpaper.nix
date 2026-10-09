@@ -2,6 +2,7 @@
 let
   awww = "${pkgs.awww}/bin/awww";
   awww-daemon = "${pkgs.awww}/bin/awww-daemon";
+  wallpaperDir = "${../../../themes/wallpapers}";
 in
 pkgs.writeShellScriptBin "wallpaper" ''
 
@@ -10,11 +11,11 @@ pkgs.writeShellScriptBin "wallpaper" ''
     sleep 0.5
   fi
 
-  # Restore
-  ${awww} restore &> /dev/null
+  # Pick a random wallpaper every session instead of restoring the last one.
+  CHOICE=$(${pkgs.findutils}/bin/find "${wallpaperDir}" -type f \
+    \( -iname '*.webp' -o -iname '*.jxl' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.gif' \) \
+    | ${pkgs.coreutils}/bin/shuf -n 1)
+  [ -z "$CHOICE" ] && CHOICE="${../../../themes/wallpapers/${defaultWallpaper}}"
 
-  # If there is no wallpaper then set the default
-  if ! ${awww} query | grep -q "image:" &> /dev/null; then
-    ${awww} img "${../../../themes/wallpapers/${defaultWallpaper}}" --transition-step 255 --transition-duration 1 --transition-fps 60 --transition-type none
-  fi
+  ${awww} img "$CHOICE" --transition-step 90 --transition-duration 1 --transition-fps 60 --transition-type wipe
 ''
