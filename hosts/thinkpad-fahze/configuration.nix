@@ -46,6 +46,7 @@ in
     ../../modules/programs/editor/zed
     ../../modules/programs/editor/neovim
     ../../modules/programs/file-manager/${vars.fileManager}
+    ../../modules/programs/file-manager/lf # Terminal file manager, available alongside the default GUI one
     ../../modules/programs/cli/tmux
     ../../modules/programs/cli/direnv
     ../../modules/programs/cli/git

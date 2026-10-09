@@ -31,7 +31,6 @@
             do = "dragon-out"; # Drag and drop
             e = "open-with-editor";
             au = "unarchive";
-            ae = "$wine $f"; # Run .exe
             dd = "cut";
             dD = "delete";
             # dR = "restore_trash";
@@ -50,7 +49,6 @@
             gd = "cd ~/Downloads";
             gp = "cd ~/Pictures";
             gc = "cd ~/.config";
-            gg = "cd ~/git-clone";
             gv = "cd ~/Videos";
             gt = "cd ~/.local/share/Trash/files";
           };
@@ -73,7 +71,7 @@
             '';
             setwallpaper = ''
               ''${{
-                  setwallpaper "$f"
+                  ${getExe pkgs.awww} img "$f" --transition-step 90 --transition-duration 1 --transition-fps 60 --transition-type wipe
                 }}
             '';
             unarchive = ''
