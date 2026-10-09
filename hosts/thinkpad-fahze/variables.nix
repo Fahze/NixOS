@@ -6,7 +6,7 @@
 
   # Theme & Appearance
   bar = "waybar"; # waybar, noctalia, wayle
-  waybarTheme = "minimal"; # stylish, minimal
+  waybarTheme = "stylish"; # stylish, minimal
   sddmTheme = "jake_the_dog"; # astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
   catppuccinFlavor = "macchiato"; # latte, frappe, macchiato, mocha
   catppuccinAccent = "mauve"; # rosewater, flamingo, pink, mauve, red, maroon, peach, yellow, green, teal, sky, sapphire, blue, lavender
