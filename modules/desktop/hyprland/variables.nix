@@ -18,6 +18,7 @@ let
     kbdVariant
     capslockAsESC
     defaultWallpaper
+    waybarTheme
     ;
   kbdOptions = vars.kbdOptions or "";
 
@@ -49,6 +50,7 @@ let
   screen-record = pkgs.callPackage ./scripts/screen-record.nix { };
   screenshot = pkgs.callPackage ./scripts/screenshot.nix { };
   wallpaper = pkgs.callPackage ./scripts/wallpaper.nix { inherit defaultWallpaper; };
+  waybarSwitch = pkgs.callPackage ./scripts/waybar-switch.nix { inherit waybarTheme; };
   zoom = pkgs.callPackage ./scripts/zoom.nix { };
 in
 {
@@ -56,6 +58,9 @@ in
     (
       { config, ... }:
       {
+        # So `waybar-switch <theme>` can be run by hand from a terminal.
+        home.packages = [ waybarSwitch ];
+
         xdg.configFile."hypr/variables.lua" = {
           text = ''
             -- Scripts
@@ -74,7 +79,14 @@ in
 
             mainMod = "SUPER"
             launcher = "${getExe launcher}"
-            bar = "${if bar == "wayle" then "wayle shell" else bar}"
+            bar = "${
+              if bar == "wayle" then
+                "wayle shell"
+              else if bar == "waybar" then
+                getExe waybarSwitch
+              else
+                bar
+            }"
             term = "${terminal}"
             editor = "${editorCommand}"
             browser = "${browser}"
