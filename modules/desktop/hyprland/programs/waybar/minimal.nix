@@ -209,9 +209,9 @@ in
                 on-scroll = 1;
                 on-click-right = "mode";
                 format = {
-                  months = "<span color='#ffead3'><b>{}</b></span>";
-                  weekdays = "<span color='#ffcc66'><b>{}</b></span>";
-                  today = "<span color='#ff6699'><b>{}</b></span>";
+                  months = "<span color='${palette.hex.rosewater}'><b>{}</b></span>";
+                  weekdays = "<span color='${palette.hex.yellow}'><b>{}</b></span>";
+                  today = "<span color='${palette.accentHex}'><b>{}</b></span>";
                 };
               };
               actions = {
