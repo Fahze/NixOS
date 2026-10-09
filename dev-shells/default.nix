@@ -63,6 +63,10 @@ rec {
     path = ./jupyter;
     description = "Jupyter development environment";
   };
+  k8s = {
+    path = ./k8s;
+    description = "Kubernetes/GitOps development environment";
+  };
   kotlin = {
     path = ./kotlin;
     description = "Kotlin development environment";
