@@ -19,6 +19,7 @@
     lutris
     heroic
     stable.bottles
+    moonlight-qt
     # ryujinx
     # prismlauncher
 

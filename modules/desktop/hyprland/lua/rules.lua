@@ -284,6 +284,11 @@ hl.window_rule({
 	match = { class = "^(com.libretro.RetroArch|[Rr]etro[Aa]rch)$" },
 	tag = "+games",
 })
+-- Verify the real class with `hyprctl clients` after activation.
+hl.window_rule({
+	match = { class = "^(moonlight)$" },
+	tag = "+games",
+})
 
 -- Godot
 hl.window_rule({
