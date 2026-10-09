@@ -26,6 +26,7 @@ in
     ../../modules/core/storage.nix
     ../../modules/core/system.nix
     ../../modules/core/users.nix
+    ../../modules/core/xdg.nix
     # ../../modules/core/syncthing.nix
     # ../../modules/core/jellyfin.nix
     # ../../modules/core/dlna.nix
