@@ -48,6 +48,7 @@ in
     ../../modules/programs/file-manager/${vars.fileManager}
     ../../modules/programs/cli/tmux
     ../../modules/programs/cli/direnv
+    ../../modules/programs/cli/git
     ../../modules/programs/cli/lazygit
     ../../modules/programs/cli/btop
     # ../../modules/programs/cli/cava
