@@ -1,6 +1,12 @@
-{ host, pkgs, ... }:
+{
+  host,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (import ../../../../../hosts/${host}/variables.nix) clock24h terminal;
+  palette = import ../../../../themes/palette.nix { inherit host lib; };
   gpuinfo = pkgs.callPackage ../../scripts/gpuinfo.nix { };
 in
 {
@@ -792,34 +798,34 @@ in
               color: @charging;
           }
 
-          @define-color rosewater		#f5e0dc;
-          @define-color flamingo		#f2cdcd;
-          @define-color pink			#f5c2e7;
-          @define-color mauve			#cba6f7;
-          @define-color red			#f38ba8;
-          @define-color maroon		#eba0ac;
-          @define-color peach			#fab387;
-          @define-color yellow		#f9e2af;
-          @define-color green			#a6e3a1;
-          @define-color teal			#94e2d5;
-          @define-color sky			#89dceb;
-          @define-color sapphire		#74c7ec;
-          @define-color blue			#89b4fa;
-          @define-color lavender		#b4befe;
-          @define-color text			#cdd6f4;
-          @define-color subtext1		#bac2de;
-          @define-color subtext0		#a6adc8;
-          @define-color overlay2		#9399b2;
-          @define-color overlay1		#7f849c;
-          @define-color overlay0		#6c7086;
-          @define-color surface2		#585b70;
-          @define-color surface1		#45475a;
-          @define-color surface0		#313244;
-          @define-color base			#1e1e2e;
-          @define-color mantle		#181825;
-          @define-color crust			#11111b;
+          @define-color rosewater		${palette.hex.rosewater};
+          @define-color flamingo		${palette.hex.flamingo};
+          @define-color pink			${palette.hex.pink};
+          @define-color mauve			${palette.hex.mauve};
+          @define-color red			${palette.hex.red};
+          @define-color maroon		${palette.hex.maroon};
+          @define-color peach			${palette.hex.peach};
+          @define-color yellow		${palette.hex.yellow};
+          @define-color green			${palette.hex.green};
+          @define-color teal			${palette.hex.teal};
+          @define-color sky			${palette.hex.sky};
+          @define-color sapphire		${palette.hex.sapphire};
+          @define-color blue			${palette.hex.blue};
+          @define-color lavender		${palette.hex.lavender};
+          @define-color text			${palette.hex.text};
+          @define-color subtext1		${palette.hex.subtext1};
+          @define-color subtext0		${palette.hex.subtext0};
+          @define-color overlay2		${palette.hex.overlay2};
+          @define-color overlay1		${palette.hex.overlay1};
+          @define-color overlay0		${palette.hex.overlay0};
+          @define-color surface2		${palette.hex.surface2};
+          @define-color surface1		${palette.hex.surface1};
+          @define-color surface0		${palette.hex.surface0};
+          @define-color base			${palette.hex.base};
+          @define-color mantle		${palette.hex.mantle};
+          @define-color crust			${palette.hex.crust};
 
-          @define-color accent		@lavender;
+          @define-color accent		${palette.accentHex};
           @define-color main-br		@subtext0;
           @define-color main-bg		@crust;
           @define-color main-fg		@text;
