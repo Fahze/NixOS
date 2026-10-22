@@ -15,5 +15,6 @@
     hunspellDicts.en_GB-ise
     prismlauncher # Minecraft
     claude-code
+    parsec-bin
   ];
 }
