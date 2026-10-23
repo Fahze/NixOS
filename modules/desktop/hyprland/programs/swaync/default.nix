@@ -7,7 +7,7 @@
 let
   palette = import ../../../../themes/palette.nix { inherit host lib; };
   gamemode = pkgs.callPackage ../../scripts/gamemode.nix { };
-  togglepowermode = pkgs.callPackage ../../scripts/togglepowermode.nix { };
+  tlpctl = "${pkgs.tlp-pd}/bin/tlpctl"; # same package as services.tlp.pd.package
 in
 {
   #  use later
@@ -179,8 +179,10 @@ in
                   label = "";
                   type = "toggle";
 
-                  command = "${togglepowermode}/bin/togglepowermode";
-                  update-command = "test -f \"$HOME/.config/hypr/power_mode\" && grep -q \"^powersave$\" \"$HOME/.config/hypr/power_mode\" && echo true || echo false";
+                  # On: power-saver. Off: back to the profile TLP picks for the
+                  # current power source (performance on AC, balanced on battery).
+                  command = "sh -c 'if [ \"$SWAYNC_TOGGLE_STATE\" = true ]; then ${tlpctl} set power-saver; elif grep -qx 1 /sys/class/power_supply/AC/online; then ${tlpctl} set performance; else ${tlpctl} set balanced; fi'";
+                  update-command = "sh -c '${tlpctl} get | grep -qx power-saver && echo true || echo false'";
                 }
               ];
             };
