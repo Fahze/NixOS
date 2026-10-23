@@ -632,6 +632,46 @@ in
           scrollbar.horizontal {
             background: transparent;
           }
+
+          /*** Timeout progress bar ***/
+          /* Floating popups only (not the control center). Critical
+             notifications have no timeout, so they get no bar. The animation
+             restarts when the pointer leaves, like swaync's own timer. */
+          @define-color accent ${palette.accentHex};
+
+          @keyframes notification-timeout {
+            from { background-size: 100% 3px; }
+            to   { background-size: 0% 3px; }
+          }
+
+          .floating-notifications .notification.normal,
+          .floating-notifications .notification.low {
+            background-image: linear-gradient(@accent, @accent);
+            background-repeat: no-repeat;
+            background-position: left bottom;
+            background-size: 100% 3px;
+          }
+
+          .floating-notifications .notification.normal:not(:hover),
+          .floating-notifications .notification.low:not(:hover) {
+            animation-name: notification-timeout;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+          }
+
+          .floating-notifications .notification.normal:not(:hover) {
+            animation-duration: ${toString timeoutNormal}s;
+          }
+
+          .floating-notifications .notification.low:not(:hover) {
+            animation-duration: ${toString timeoutLow}s;
+          }
+
+          /* Paused while hovered: show a dimmed full bar. */
+          .floating-notifications .notification.normal:hover,
+          .floating-notifications .notification.low:hover {
+            background-image: linear-gradient(alpha(@accent, 0.4), alpha(@accent, 0.4));
+          }
         '';
       };
     })
