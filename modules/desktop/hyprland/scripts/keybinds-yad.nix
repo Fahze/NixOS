@@ -23,13 +23,30 @@ pkgs.writeShellScriptBin "keybinds-yad" ''
   _terminal=$(get_nix_value "terminal =")
   _fileManager=$(get_nix_value "fileManager =")
 
+  # Usable area of the focused monitor in logical pixels (scale applied, bar
+  # exclusive zone removed), so the window never overflows the screen.
+  read -r area_w area_h < <(
+    hyprctl -j monitors 2>/dev/null | ${pkgs.jq}/bin/jq -r '
+      map(select(.focused))[0]
+      | [ (.width / .scale - .reserved[0] - .reserved[2]),
+          (.height / .scale - .reserved[1] - .reserved[3]) ]
+      | map(floor) | @tsv'
+  )
+  # Fall back to a size that fits a 1280x800 logical screen
+  : "''${area_w:=1280}" "''${area_h:=760}"
+
+  win_w=$((area_w * 9 / 10))
+  win_h=$((area_h * 9 / 10))
+  [ "$win_w" -gt 745 ] && win_w=745
+  [ "$win_h" -gt 920 ] && win_h=920
+
   ${pkgs.yad}/bin/yad \
     --center \
     --title="Hyprland Keybinds" \
     --no-buttons \
     --list \
-    --width=745 \
-    --height=920 \
+    --width="$win_w" \
+    --height="$win_h" \
     --column=Key: \
     --column=Description: \
     --column=Command: \
