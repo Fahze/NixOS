@@ -30,9 +30,10 @@ in
           timeout = 6;
           timeout-low = 3;
           timeout-critical = 0;
-          fit-to-screen = false;
+          # Fill the area left by the bar (exclusive zone) instead of a fixed
+          # height, which overflowed the 1536x960 logical panel.
+          fit-to-screen = true;
           control-center-width = 400;
-          control-center-height = 940;
           notification-window-width = 375;
           keyboard-shortcuts = true;
           image-visibility = "when-available";
@@ -396,9 +397,9 @@ in
           .widget-menubar > box > box > button {
             background: alpha(@theme_bg_color, .80);
             /* background: alpha(currentColor, 0.05); */
-            min-width: 185px;
+            min-width: 165px;
             min-height: 50px;
-            margin-right: 25px;
+            margin-right: 20px;
             font-size: 14px;
             padding: 5px;
           }
