@@ -8,6 +8,11 @@ let
   palette = import ../../../../themes/palette.nix { inherit host lib; };
   gamemode = pkgs.callPackage ../../scripts/gamemode.nix { };
   tlpctl = "${pkgs.tlp-pd}/bin/tlpctl"; # same package as services.tlp.pd.package
+
+  # Notification timeouts in seconds. Also used by the CSS progress bar, whose
+  # animation length must match the real swaync timer.
+  timeoutNormal = 6;
+  timeoutLow = 3;
 in
 {
   #  use later
@@ -27,8 +32,8 @@ in
           notification-icon-size = 64;
           notification-body-image-height = 100;
           notification-body-image-width = 200;
-          timeout = 6;
-          timeout-low = 3;
+          timeout = timeoutNormal;
+          timeout-low = timeoutLow;
           timeout-critical = 0;
           # Fill the area left by the bar (exclusive zone) instead of a fixed
           # height, which overflowed the 1536x960 logical panel.
