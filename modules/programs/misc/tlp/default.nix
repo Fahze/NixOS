@@ -2,6 +2,12 @@
 {
   services.tlp = {
     enable = true;
+
+    # power-profiles-daemon compatible D-Bus API (net.hadess.PowerProfiles) and
+    # the `tlpctl` CLI, so bars and panels can switch performance / balanced /
+    # power-saver without root. Conflicts with services.power-profiles-daemon.
+    pd.enable = true;
+
     settings = {
       # amd-pstate (Zen 2+, kernel >= 6.3). In "active" mode only the
       # performance/powersave governors exist; power vs. performance is steered by EPP.
