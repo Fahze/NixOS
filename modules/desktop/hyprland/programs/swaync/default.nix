@@ -45,7 +45,8 @@ in
           notification-window-width = 375;
           keyboard-shortcuts = true;
           image-visibility = "when-available";
-          transition-time = 200;
+          # Fade duration of the notification crossfade (in and out).
+          transition-time = 400;
           hide-on-clear = false;
           hide-on-action = true;
           script-fail-notify = true;
