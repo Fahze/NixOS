@@ -65,6 +65,7 @@ in
         "custom/left_div-7"
         "backlight"
         "custom/left_div-8"
+        "power-profiles-daemon"
         "battery"
         "custom/left_inv-2"
         "custom/notification"
@@ -397,6 +398,18 @@ in
         on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl set 1%+";
         on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl set 1%-";
         tooltip = false;
+      };
+
+      # Served by tlp-pd (net.hadess.PowerProfiles); click cycles the profiles.
+      "power-profiles-daemon" = {
+        format = "{icon}";
+        tooltip-format = "Power profile: {profile}";
+        format-icons = {
+          default = "";
+          performance = "";
+          balanced = "";
+          power-saver = "";
+        };
       };
 
       "battery" = {

@@ -46,6 +46,7 @@ in
         "network"
         "bluetooth"
         "tray"
+        "power-profiles-daemon"
         "battery"
       ];
 
@@ -322,6 +323,18 @@ in
         spacing = 6; # 5
       };
 
+      # Served by tlp-pd (net.hadess.PowerProfiles); click cycles the profiles.
+      "power-profiles-daemon" = {
+        format = "{icon}";
+        tooltip-format = "Power profile: {profile}";
+        format-icons = {
+          default = "";
+          performance = "";
+          balanced = "";
+          power-saver = "";
+        };
+      };
+
       "battery" = {
         states = {
           good = 95;
@@ -445,6 +458,7 @@ in
     #backlight,
     #backlight-slider,
     #battery,
+    #power-profiles-daemon,
     #bluetooth,
     #clock,
     #cpu,
@@ -503,6 +517,18 @@ in
     }
 
     #battery {
+      color: @green;
+    }
+
+    #power-profiles-daemon {
+      color: @text;
+    }
+
+    #power-profiles-daemon.performance {
+      color: @peach;
+    }
+
+    #power-profiles-daemon.power-saver {
       color: @green;
     }
 
