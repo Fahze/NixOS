@@ -33,6 +33,9 @@ in
           # Fill the area left by the bar (exclusive zone) instead of a fixed
           # height, which overflowed the 1536x960 logical panel.
           fit-to-screen = true;
+          # By default the layer surface is as tall as the whole monitor but
+          # starts below the bar, so its bottom overflows by the bar height.
+          layer-shell-cover-screen = false;
           control-center-width = 400;
           notification-window-width = 375;
           keyboard-shortcuts = true;
