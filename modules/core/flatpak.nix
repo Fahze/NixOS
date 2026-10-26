@@ -1,16 +1,16 @@
-{ lib, inputs, ... }:
+{ inputs, ... }:
 {
   imports = [ inputs.nix-flatpak.nixosModules.nix-flatpak ];
   services = {
     flatpak = {
       enable = true;
 
-      # remotes = lib.mkOptionDefault [
-      #   {
-      #     name = "penguinburner";
-      #     location = "https://jpietek.github.io/PenguinBurner/penguin-burner.flatpakrepo";
-      #   }
-      # ];
+      remotes = [
+        {
+          name = "flathub";
+          location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+        }
+      ];
 
       # List the Flatpak applications you want to install
       # Use the official Flatpak application ID (e.g., from flathub.org)

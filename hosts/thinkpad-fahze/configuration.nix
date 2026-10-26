@@ -30,7 +30,7 @@ in
     # ../../modules/core/syncthing.nix
     # ../../modules/core/jellyfin.nix
     # ../../modules/core/dlna.nix
-    # ../../modules/core/flatpak.nix
+    ../../modules/core/flatpak.nix
     # ../../modules/core/virtualisation.nix
 
     # Optional
