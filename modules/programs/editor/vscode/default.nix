@@ -14,7 +14,12 @@
           enable = true;
           mutableExtensionsDir = true;
           # package = pkgs.vscodium;
-          package = pkgs.vscode;
+          # Chromium's desktop-environment detection doesn't recognize
+          # XDG_CURRENT_DESKTOP=Hyprland, so it falls back to weak secret
+          # storage instead of gnome-libsecret; force it explicitly.
+          package = pkgs.vscode.override {
+            commandLineArgs = "--password-store=gnome-libsecret";
+          };
           profiles.default = {
             extensions = with pkgs.vscode-extensions; [
               arrterian.nix-env-selector
