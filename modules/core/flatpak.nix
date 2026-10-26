@@ -32,6 +32,12 @@
 
       # Optional: Automatically update Flatpaks when you run nixos-rebuild swit ch
       update.onActivation = true;
+
+      # SSHPilot's flatpak manifest doesn't request Secret Service access, so
+      # it can't reach gnome-keyring from inside the sandbox without this.
+      overrides."io.github.mfat.sshpilot"."Session Bus Policy" = {
+        "org.freedesktop.secrets" = "talk";
+      };
     };
   };
 }
