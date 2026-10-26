@@ -20,6 +20,10 @@ hl.env("XCURSOR_THEME", "Bibata-Modern-Classic")
 hl.env("XCURSOR_SIZE", "24")
 
 hl.on("hyprland.start", function()
+	-- Re-publish the PAM-set session env (GNOME_KEYRING_CONTROL, SSH_AUTH_SOCK, ...)
+	-- to the D-Bus activation environment, so secret-service activation reaches the
+	-- keyring already unlocked by pam_gnome_keyring instead of spawning an orphan.
+	hl.exec_cmd("dbus-update-activation-environment --systemd --all")
 	hl.exec_cmd(wallpaper)
 	hl.exec_cmd(bar)
 	hl.exec_cmd("hypridle")
